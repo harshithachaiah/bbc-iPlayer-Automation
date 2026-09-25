@@ -1,0 +1,26 @@
+{
+  "name": "bbc-iplayer-test-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:test": "cross-env TEST_ENV=test playwright test",
+    "test:live": "cross-env TEST_ENV=live playwright test",
+    "test:test:headed": "cross-env TEST_ENV=test playwright test --headed",
+    "test:live:headed": "cross-env TEST_ENV=live playwright test --headed",
+    "test:test:ui": "cross-env TEST_ENV=test playwright test --ui",
+    "test:live:ui": "cross-env TEST_ENV=live playwright test --ui",
+    "auth:test": "cross-env TEST_ENV=test node tests/auth.setup.js",
+    "auth:live": "cross-env TEST_ENV=live node tests/auth.setup.js",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "cross-env": "^10.1.0"
+  }
+}

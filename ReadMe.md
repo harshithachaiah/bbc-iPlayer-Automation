@@ -1,0 +1,1 @@
+TEST_ENV=test node tests/auth.setup.js
