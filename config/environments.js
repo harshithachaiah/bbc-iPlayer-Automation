@@ -5,7 +5,7 @@ const environments = {
     },
 
     live: {
-        baseUrl: "https://www.bbc.co.uk/iplayer",
+        baseUrl: "https://www.live.bbctvapps.co.uk/tap/telly/iplayer?featureToggles=isUhdCapable",
         signInUrl: "https://account.bbc.com/signin"
     }
 };

@@ -1,5 +1,10 @@
 const { expect } = require("@playwright/test");
 
+const baseUrl =
+    process.env.TEST_ENV === "live"
+        ? "https://www.live.bbctvapps.co.uk"
+        : "https://www.test.bbctvapps.co.uk";
+
 class AccountSelectionPage {
 
     constructor(page) {
@@ -7,11 +12,14 @@ class AccountSelectionPage {
 
         this.adultAccount = page.getByTestId("HasH");
         this.kidsAccount = page.getByTestId("Hash");
+
         this.adultHeroCard = page.locator(
-    'a[id^="hero:"][data-active="true"]'
-);
+            'a[id^="hero:"][data-active="true"]'
+        );
+
         this.kidsHeroCard = page.locator(
-       'a[id^="4-6-childrens-hero:"][data-active="true"]');
+            'a[id^="4-6-childrens-hero:"][data-active="true"]'
+        );
     }
 
     async navigate() {
@@ -31,11 +39,13 @@ class AccountSelectionPage {
 
         await this.adultAccount.click();
 
-      await expect(this.page).toHaveURL(
-    /https:\/\/www\.live\.bbctvapps\.co\.uk\/tap\/telly\/iplayer\?featureToggles=isUhdCapable#hero/
-);
+        await expect(this.page).toHaveURL(
+            new RegExp(
+                `${baseUrl}/tap/telly/iplayer\\?featureToggles=isUhdCapable#hero`
+            )
+        );
 
-        // Verify focus is on the first hero card 
+        // Verify focus is on the first hero card
         await expect(this.adultHeroCard).toBeFocused();
     }
 
@@ -47,9 +57,13 @@ class AccountSelectionPage {
 
         await this.kidsAccount.click();
 
-await expect(this.page).toHaveURL(/https:\/\/www\.live\.bbctvapps\.co\.uk\/tap\/telly\/iplayer\?featureToggles=isUhdCapable#4-6-childrens-hero/);
-        
-        // Verify focus is on the first hero card 
+        await expect(this.page).toHaveURL(
+            new RegExp(
+                `${baseUrl}/tap/telly/iplayer\\?featureToggles=isUhdCapable#4-6-childrens-hero`
+            )
+        );
+
+        // Verify focus is on the first hero card
         await expect(this.kidsHeroCard).toBeFocused();
     }
 }
