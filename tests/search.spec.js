@@ -12,7 +12,7 @@ test.describe("iPlayer Search", () => {
         const searchPage = new SearchPage(page);
 
         await page.goto(
-            "/tap/telly/iplayer?featureToggles=isUhdCapable",
+            "/tap/telly/iplayer",
             {
                 waitUntil: "domcontentloaded"
             }
@@ -37,7 +37,7 @@ test.describe("iPlayer Search", () => {
 
         // Open iPlayer
         await page.goto(
-            "/tap/telly/iplayer?featureToggles=isUhdCapable",
+            "/tap/telly/iplayer",
             {
                 waitUntil: "domcontentloaded"
             }

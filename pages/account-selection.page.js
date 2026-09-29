@@ -41,7 +41,7 @@ class AccountSelectionPage {
 
         await expect(this.page).toHaveURL(
             new RegExp(
-                `${baseUrl}/tap/telly/iplayer\\?featureToggles=isUhdCapable#hero`
+                `${baseUrl}/tap/telly/iplayer\\#hero`
             )
         );
 
@@ -59,7 +59,7 @@ class AccountSelectionPage {
 
         await expect(this.page).toHaveURL(
             new RegExp(
-                `${baseUrl}/tap/telly/iplayer\\?featureToggles=isUhdCapable#4-6-childrens-hero`
+                `${baseUrl}/tap/telly/iplayer\\#4-6-childrens-hero`
             )
         );
 

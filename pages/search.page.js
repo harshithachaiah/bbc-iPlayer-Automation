@@ -20,7 +20,7 @@ class SearchPage {
 
     async verifySearchPage() {
         await expect(this.page).toHaveURL(
-            /\/tap\/telly\/iplayer\/search\?featureToggles=isUhdCapable#character-key-a/
+            /\/tap\/telly\/iplayer\/search\#character-key-a/
         );
     }
 
