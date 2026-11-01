@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:test": "cross-env TEST_ENV=test playwright test",
+    "test:test": "TEST_ENV=test playwright test",
     "test:live": "cross-env TEST_ENV=live playwright test",
     "test:test:headed": "cross-env TEST_ENV=test playwright test --headed",
     "test:live:headed": "cross-env TEST_ENV=live playwright test --headed",
