@@ -32,6 +32,9 @@ class SearchPage {
         this.playerControls = page.locator(
             'div[class*="_controls-gradient-bottom_"]'
         );
+
+        // Search input field.
+this.searchInput = page.locator("#searchbox_input");
     }
 
     // Verify that the Search page has opened.
@@ -116,6 +119,37 @@ class SearchPage {
 
         return this.searchResultTitles.allInnerTexts();
     }
+
+    // Verify that the A key is focused by default.
+async verifyDefaultFocusedKey() {
+    const focusedElement = this.page.locator(
+        ':focus'
+    );
+
+    await expect(focusedElement).toHaveText("A");
+}
+
+// Verify that at least 9 search results are rendered in the DOM.
+async verifyMinimumSearchResults(expectedCount = 9) {
+
+    await expect.poll(
+        async () => await this.searchResultLinks.count(),
+        {
+            message: `Expected at least ${expectedCount} search results in the DOM`,
+            timeout: 30000
+        }
+    ).toBeGreaterThanOrEqual(expectedCount);
+}
+// Verify the value displayed in the Search input.
+async verifySearchInputValue(expectedValue) {
+
+    await expect(this.searchInput).toHaveText(
+        expectedValue,
+        {
+            timeout: 10000
+        }
+    );
+}
 }
 
 module.exports = SearchPage;

@@ -52,7 +52,7 @@ for (const account of accounts) {
 
         // Verify Search page.
         await searchPage.verifySearchPage();
-        await page.waitForTimeout(500);
+        await page.waitForTimeout(200);
         // Select letter A.
         await navigation.enter();
 
@@ -93,7 +93,7 @@ for (const account of accounts) {
 
         // Verify Search page.
         await searchPage.verifySearchPage();
-        await page.waitForTimeout(500);
+        await page.waitForTimeout(200);
         // Search for BBC.
         await navigation.right();
         await navigation.enter();
@@ -123,5 +123,120 @@ for (const account of accounts) {
 
         // Verify return to Search.
         await searchPage.verifySearchPage();
+    });
+
+    
+}
+
+// Adult and Kids search results for the default letter A.
+for (const account of accounts) {
+
+    test(`${account.name} user can load at least 9 results for default letter A`, async ({
+        page,
+        navigation
+    }) => {
+
+        const accountSelectionPage =
+            new AccountSelectionPage(page);
+
+        const searchPage =
+            new SearchPage(page);
+
+        // Open BBC iPlayer.
+        await accountSelectionPage.navigate();
+
+        // Select account.
+        await accountSelectionPage[account.selectMethod]();
+
+        // Navigate to Search.
+        await navigation.left();
+        await navigation.down(account.downCount);
+        await navigation.enter();
+
+        // Verify Search page.
+        await searchPage.verifySearchPage();
+
+        // Allow the Search page to initialise.
+        await page.waitForTimeout(1000);
+
+        // Verify A is focused by default.
+        await searchPage.verifyDefaultFocusedKey();
+
+        // Select the focused A key.
+        await navigation.enter();
+
+        // Verify at least 9 results are rendered.
+        await searchPage.verifyMinimumSearchResults(9);
+
+        console.log(
+            `${account.name}: Search results rendered:`,
+            await searchPage.searchResultLinks.count()
+        );
+    });
+}
+
+// Adult and Kids search keyboard character selection.
+for (const account of accounts) {
+
+    test(`${account.name} user can append and delete search characters`, async ({
+        page,
+        navigation
+    }) => {
+
+        const accountSelectionPage =
+            new AccountSelectionPage(page);
+
+        const searchPage =
+            new SearchPage(page);
+
+        // Open BBC iPlayer.
+        await accountSelectionPage.navigate();
+
+        // Select account.
+        await accountSelectionPage[account.selectMethod]();
+
+        // Navigate to Search.
+        await navigation.left();
+        await navigation.down(account.downCount);
+        await navigation.enter();
+
+        // Verify Search page.
+        await searchPage.verifySearchPage();
+
+        // Allow the Search page to initialise.
+        await page.waitForTimeout(200);
+
+        // // Verify A is focused by default.
+        // await expect(page.locator(":focus")).toHaveText("A");
+
+        // Select A.
+        await navigation.enter();
+
+        // Verify Search input contains A.
+        await searchPage.verifySearchInputValue("A");
+
+        // Move right to B and select.
+        await navigation.right();
+        await navigation.enter();
+
+        // Verify B is appended.
+        await searchPage.verifySearchInputValue("AB");
+
+        // Move right to C and select.
+        await navigation.right();
+        await navigation.enter();
+
+        // Verify C is appended.
+        await searchPage.verifySearchInputValue("ABC");
+
+        // Navigate to Delete (5 times right and 2 times down).
+        await navigation.right(5);
+        await navigation.down(2);
+
+        // Select Delete.
+        await navigation.enter();
+
+        // Verify C has been deleted.
+        await searchPage.verifySearchInputValue("AB");
     });
 }
