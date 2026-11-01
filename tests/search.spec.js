@@ -52,7 +52,7 @@ for (const account of accounts) {
 
         // Verify Search page.
         await searchPage.verifySearchPage();
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(500);
         // Select letter A.
         await navigation.enter();
 
@@ -93,7 +93,7 @@ for (const account of accounts) {
 
         // Verify Search page.
         await searchPage.verifySearchPage();
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(500);
         // Search for BBC.
         await navigation.right();
         await navigation.enter();
