@@ -239,4 +239,54 @@ for (const account of accounts) {
         // Verify C has been deleted.
         await searchPage.verifySearchInputValue("AB");
     });
+
+    
+}
+
+// Adult and Kids search for a term with no results.
+for (const account of accounts) {
+
+    test(`${account.name} user sees no results found when searching for AAA`, async ({
+        page,
+        navigation
+    }) => {
+
+        const accountSelectionPage =
+            new AccountSelectionPage(page);
+
+        const searchPage =
+            new SearchPage(page);
+
+        // Open BBC iPlayer.
+        await accountSelectionPage.navigate();
+
+        // Select account.
+        await accountSelectionPage[account.selectMethod]();
+
+        // Navigate to Search.
+        await navigation.left();
+        await navigation.down(account.downCount);
+        await navigation.enter();
+
+        // Verify Search page.
+        await searchPage.verifySearchPage();
+
+        // Allow the Search page to initialise.
+        await page.waitForTimeout(200);
+
+        // Select A three times.
+        await navigation.enter();
+        await searchPage.verifySearchInputValue("A");
+
+        await navigation.enter();
+        await searchPage.verifySearchInputValue("AA");
+
+        await navigation.enter();
+        await searchPage.verifySearchInputValue("AAA");
+
+        await navigation.enter(5);
+
+        // Verify that no results are found.
+        await searchPage.verifyNoResultsFound();
+    });
 }

@@ -34,7 +34,11 @@ class SearchPage {
         );
 
         // Search input field.
-this.searchInput = page.locator("#searchbox_input");
+        this.searchInput = page.locator("#searchbox_input");
+        
+
+        // No results found message.
+        this.noResultsMessage = page.locator("#search-grid-title");
     }
 
     // Verify that the Search page has opened.
@@ -150,6 +154,18 @@ async verifySearchInputValue(expectedValue) {
         }
     );
 }
+
+// Verify that no search results are found.
+async verifyNoResultsFound() {
+    await expect(this.noResultsMessage).toHaveText(
+        "No results found",
+        {
+            timeout: 30000
+        }
+    );
 }
+}
+
+
 
 module.exports = SearchPage;
