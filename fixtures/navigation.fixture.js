@@ -1,3 +1,4 @@
+
 const { test: base } = require("@playwright/test");
 
 const test = base.extend({
@@ -10,29 +11,12 @@ const test = base.extend({
         };
 
         const navigation = {
-            up: async (count = 1) => {
-                await pressKey("ArrowUp", count);
-            },
-
-            down: async (count = 1) => {
-                await pressKey("ArrowDown", count);
-            },
-
-            left: async (count = 1) => {
-                await pressKey("ArrowLeft", count);
-            },
-
-            right: async (count = 1) => {
-                await pressKey("ArrowRight", count);
-            },
-
-            enter: async (count = 1) => {
-                await pressKey("Enter", count);
-            },
-
-            back: async (count = 1) => {
-                await pressKey("Backspace", count);
-            }
+            up: (count = 1) => pressKey("ArrowUp", count),
+            down: (count = 1) => pressKey("ArrowDown", count),
+            left: (count = 1) => pressKey("ArrowLeft", count),
+            right: (count = 1) => pressKey("ArrowRight", count),
+            enter: (count = 1) => pressKey("Enter", count),
+            back: (count = 1) => pressKey("Backspace", count)
         };
 
         await use(navigation);

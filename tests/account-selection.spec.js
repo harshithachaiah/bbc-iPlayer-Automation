@@ -1,27 +1,32 @@
+
 const { test } = require("@playwright/test");
-const AccountSelectionPage = require("../pages/account-selection.page");
+
+const AccountSelectionPage = require(
+    "../pages/account-selection.page"
+);
 
 test.describe("BBC iPlayer Account Selection", () => {
 
-    test("User can select Adult account", async ({ page }) => {
+    const accounts = [
+        {
+            name: "Adult",
+            selectMethod: "selectAdultAccount"
+        },
+        {
+            name: "Kids",
+            selectMethod: "selectKidsAccount"
+        }
+    ];
 
-        const accountSelectionPage =
-            new AccountSelectionPage(page);
+    for (const account of accounts) {
+        test(`User can select ${account.name} account`, async ({ page }) => {
 
-        await accountSelectionPage.navigate();
+            const accountSelectionPage =
+                new AccountSelectionPage(page);
 
-        await accountSelectionPage.selectAdultAccount();
-    });
+            await accountSelectionPage.navigate();
 
-
-    test("User can select Kids account", async ({ page }) => {
-
-        const accountSelectionPage =
-            new AccountSelectionPage(page);
-
-        await accountSelectionPage.navigate();
-
-        await accountSelectionPage.selectKidsAccount();
-    });
-
+            await accountSelectionPage[account.selectMethod]();
+        });
+    }
 });

@@ -1,9 +1,5 @@
-const { expect } = require("@playwright/test");
 
-const baseUrl =
-    process.env.TEST_ENV === "live"
-        ? "https://www.live.bbctvapps.co.uk"
-        : "https://www.test.bbctvapps.co.uk";
+const { expect } = require("@playwright/test");
 
 class AccountSelectionPage {
 
@@ -39,13 +35,12 @@ class AccountSelectionPage {
 
         await this.adultAccount.click();
 
+        // Verify navigation to the Adult hero section.
         await expect(this.page).toHaveURL(
-            new RegExp(
-                `${baseUrl}/tap/telly/iplayer\\#hero`
-            )
+            /\/tap\/telly\/iplayer#hero:/
         );
 
-        // Verify focus is on the first hero card
+        // Verify focus is on the first Adult hero card.
         await expect(this.adultHeroCard).toBeFocused();
     }
 
@@ -57,13 +52,12 @@ class AccountSelectionPage {
 
         await this.kidsAccount.click();
 
+        // Verify navigation to the Kids hero section.
         await expect(this.page).toHaveURL(
-            new RegExp(
-                `${baseUrl}/tap/telly/iplayer\\#4-6-childrens-hero`
-            )
+            /\/tap\/telly\/iplayer#4-6-childrens-hero:/
         );
 
-        // Verify focus is on the first hero card
+        // Verify focus is on the first Kids hero card.
         await expect(this.kidsHeroCard).toBeFocused();
     }
 }
