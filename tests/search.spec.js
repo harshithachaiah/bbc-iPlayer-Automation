@@ -14,7 +14,7 @@ const accounts = [
     {
         name: "Adult",
         selectMethod: "selectAdultAccount",
-        downCount: 3,
+        downCount: 4,
         resultDownCount: 3
     },
     {

@@ -14,6 +14,7 @@ class SearchPage {
             '#search-grid a[data-native="true"]'
         );
 
+
         // Programme titles.
         this.searchResultTitles =
             this.searchResultLinks.locator("h3");
